@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // apps routes
-// app.use("/api", router);
+app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Qtec-Solution-Limited-Server is running");
