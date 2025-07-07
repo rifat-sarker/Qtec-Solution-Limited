@@ -15,6 +15,10 @@ const ProductSchema = new Schema<IProduct>(
       type: Number,
       required: true,
     },
+    quantity: {
+      type: Number,
+      required: true,
+    },
     description: {
       type: String,
       required: true,

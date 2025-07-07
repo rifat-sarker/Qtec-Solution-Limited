@@ -7,6 +7,8 @@ import catchAsync from "../../utils/catchAsync";
 
 const router = express.Router();
 
+router.get("/", ProductController.getAllProducts);
+
 router.post(
   "/",
   multerUpload.single("file"),
@@ -17,5 +19,6 @@ router.post(
   validateRequest(ProductValidation.createProductZodSchema),
   ProductController.createProduct
 );
+
 
 export const ProductRoutes = router;

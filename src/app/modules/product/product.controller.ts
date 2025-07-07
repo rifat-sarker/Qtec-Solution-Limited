@@ -16,7 +16,6 @@ const createProduct = catchAsync(async (req, res) => {
     image: file.path,
   });
 
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -25,6 +24,18 @@ const createProduct = catchAsync(async (req, res) => {
   });
 });
 
+const getAllProducts = catchAsync(async (req, res) => {
+  const result = await ProductServices.getAllProducts();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Product retrieved succesfully",
+    data: result,
+  });
+});
+
 export const ProductController = {
   createProduct,
+  getAllProducts,
 };
