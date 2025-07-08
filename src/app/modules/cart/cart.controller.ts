@@ -38,6 +38,8 @@ const updateCartItem = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+
 const getCart = catchAsync(async (req, res) => {
   const result = await CartService.getCart();
 

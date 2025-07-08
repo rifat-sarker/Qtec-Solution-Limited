@@ -35,7 +35,26 @@ const getAllProducts = catchAsync(async (req, res) => {
   });
 });
 
+const getProductById = catchAsync(async (req, res) => {
+  const productId = req.params.productId;
+
+  if (!productId) {
+    throw new Error("Product ID is required");
+  }
+
+  console.log(req.body);
+
+  const result = await ProductServices.getProductById(productId);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Product retrieved succesfully",
+    data: result,
+  });
+});
+
 export const ProductController = {
   createProduct,
   getAllProducts,
+  getProductById,
 };
