@@ -2,6 +2,7 @@ import { Cart } from "./cart.model";
 import { Product } from "../product/product.model";
 import { Types } from "mongoose";
 
+
 const getCart = async () => {
   let cart = await Cart.findOne().populate("items.product");
   if (!cart) {
@@ -10,22 +11,42 @@ const getCart = async () => {
   return cart;
 };
 
+// Recalculate total based on cart items
+const recalculateCartTotal = async (cart: any) => {
+  const productIds = cart.items.map(
+    (item: any) => item.product._id || item.product
+  );
+  const products = await Product.find({ _id: { $in: productIds } }).lean();
+
+  const priceMap = new Map(products.map((p) => [p._id.toString(), p.price]));
+
+  let total = 0;
+  for (const item of cart.items) {
+    const price =
+      priceMap.get(item.product._id?.toString() || item.product.toString()) ||
+      0;
+    total += price * item.quantity;
+  }
+
+  cart.totalAmount = total;
+};
+
 const addItemToCart = async (productId: string) => {
   const cart = await getCart();
 
   const existingItem = cart.items.find(
-    (item) => item.product.toString() === productId
+    (item: any) =>
+      item.product._id?.toString() === productId ||
+      item.product.toString() === productId
   );
 
   if (existingItem) {
-    // If already exists, increase quantity by 1
     existingItem.quantity += 1;
   } else {
-    // If new, add with quantity 1
     cart.items.push({ product: new Types.ObjectId(productId), quantity: 1 });
   }
 
-  await calculateTotal(cart);
+  await recalculateCartTotal(cart);
   await cart.save();
   return cart;
 };
@@ -33,7 +54,6 @@ const addItemToCart = async (productId: string) => {
 const updateItemQuantity = async (cartItemId: string, quantity: number) => {
   const cart = await getCart();
 
-  // Find item by cart item _id using .find()
   const existingItem = cart.items.find(
     (item: any) => item._id.toString() === cartItemId
   );
@@ -42,39 +62,21 @@ const updateItemQuantity = async (cartItemId: string, quantity: number) => {
     throw new Error("Cart item not found");
   }
 
-  existingItem.quantity = quantity;
-
-  if (existingItem.quantity <= 0) {
+  if (quantity <= 0) {
     cart.items = cart.items.filter(
       (item: any) => item._id.toString() !== cartItemId
     );
+  } else {
+    existingItem.quantity = quantity;
   }
 
-  await calculateTotal(cart);
+  await recalculateCartTotal(cart);
   await cart.save();
   return cart;
 };
 
-const calculateTotal = async (cart: any) => {
-  let total = 0;
-
-  for (const item of cart.items) {
-    const product = await Product.findById(item.product);
-    if (product) {
-      total += product.price * item.quantity;
-    }
-  }
-
-  cart.totalAmount = total;
-};
-
-const getCartDetails = async () => {
-  const cart = await getCart();
-  return cart;
-};
-
 export const CartService = {
+  getCart, 
   addItemToCart,
   updateItemQuantity,
-  getCartDetails,
 };

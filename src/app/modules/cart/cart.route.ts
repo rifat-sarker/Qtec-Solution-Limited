@@ -11,7 +11,7 @@ router.post(
   CartController.addItemToCart
 );
 
-router.patch("/update/:productId", CartController.updateCartItem);
+router.patch("/item/:cartItemId", CartController.updateCartItem);
 
 router.get("/", CartController.getCart);
 

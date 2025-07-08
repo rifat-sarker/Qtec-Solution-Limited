@@ -39,7 +39,7 @@ const updateCartItem = catchAsync(async (req, res) => {
   });
 });
 const getCart = catchAsync(async (req, res) => {
-  const result = await CartService.getCartDetails();
+  const result = await CartService.getCart();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
