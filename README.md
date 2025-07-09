@@ -40,9 +40,10 @@ bun install
 
 ### 3. Environment Setup
 Create a .env file at the root:
-.env
+```
 PORT=5000
 DATABASE_URL=""
+```
 
 ### 4. Build the Project
 ```bash
