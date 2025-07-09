@@ -43,6 +43,10 @@ Create a .env file at the root:
 ```
 PORT=5000
 DATABASE_URL=""
+NODE_ENV=""
+CLOUDINARY_CLOUD_NAME=""
+CLOUDINARY_API_SECRET=""
+CLOUDINARY_API_KEY=""
 ```
 
 ### 4. Build the Project
