@@ -7,7 +7,15 @@ const app: Application = express();
 // parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "https://qtec-solution-limited-client.vercel.app",
+      "http://localhost:5173",
+    ],
+    credentials: true,
+  })
+);
 
 // apps routes
 app.use("/api", router);
