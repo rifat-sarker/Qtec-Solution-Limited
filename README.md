@@ -10,7 +10,7 @@ This is the backend server for **Qtec Solution Limited**, a shopping cart applic
 🔗 [https://qtec-solution-limited-client.vercel.app](https://qtec-solution-limited-client.vercel.app)
 
 **Backend (Vercel):**  
-🔗 [https://qtec-solution-limited-server.vercel.app/](https://qtec-solution-limited-server.vercel.app/)
+🔗 [https://qtec-solution-limited-server.vercel.app](https://qtec-solution-limited-server.vercel.app)
 
 ---
 
@@ -31,28 +31,35 @@ This is the backend server for **Qtec Solution Limited**, a shopping cart applic
 ```bash
 git clone https://github.com/rifat-sarker/Qtec-Solution-Limited.git
 cd Qtec-Solution-Limited
+```
 
-2. Install Dependencies
+### 2. Install Dependencies
+```bash
 bun install
+```
 
-3. Environment Setup
+### 3. Environment Setup
 Create a .env file at the root:
-
-env
-
+.env
 PORT=5000
 DATABASE_URL=""
 
-4. Build the Project
+### 4. Build the Project
+```bash
 bun run build
+```
 
-5. Start the Server
+### 5. Start the Server
+```bash
 bun run start:prod
+```
 
-6. Development Mode
+### 6. Development Mode
+```bash
 bun run dev
+```
 
-🛠 Tech Stack
+### 🛠 Tech Stack
 | Technology     | Purpose                       |
 | -------------- | ----------------------------- |
 | **Node.js**    | Runtime environment           |
@@ -66,7 +73,8 @@ bun run dev
 | **Multer**     | File uploads (for future use) |
 
 
-📁 Project Structure
+### 📁 Project Structure
+```
 src/
 ├── app/
 │   ├── modules/
@@ -77,9 +85,11 @@ src/
 ├── config/
 ├── utils/
 └── server.ts
+```
 
 
-📬 API Endpoints
+### 📬 API Endpoints
+```
 | Method | Endpoint                      | Description          |
 | ------ | ------------------------------|--------------------- |
 | POST   | `/api/cart/add`               | Add product to cart  |
@@ -88,6 +98,7 @@ src/
 | GET    | `/api/products`               | Get all products     |
 | GET    | `/api/products/:productId`    | Get product by ID    |
 
+```
 
 👨‍💻 Author
 Rifat Sarker
